@@ -2,20 +2,6 @@
     font-family: 'Raleway', sans-serif;
 }
 
-.current {
-    background-color: rgb(192, 1, 1);
-    color: white;
-}
-
-.selected {
-    background-color: rgb(192, 1, 1);
-    color: white;
-}
-
-.calendar-day {
-    cursor: pointer;
-}
-
 table, th, td {
     border: 2px solid black;
     border-collapse: collapse;
@@ -29,6 +15,20 @@ td {
 
 h2 {
     text-align: center;
+}
+
+.current {
+    background-color: rgb(192, 1, 1);
+    color: white;
+}
+
+.selected {
+    background-color: rgb(192, 1, 1);
+    color: white;
+}
+
+.calendar-day {
+    cursor: pointer;
 }
 
 .container {
