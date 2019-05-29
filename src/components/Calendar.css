@@ -1,0 +1,50 @@
+* {
+    font-family: 'Raleway', sans-serif;
+}
+
+.current {
+    background-color: rgb(192, 1, 1);
+    color: white;
+}
+
+.selected {
+    background-color: rgb(192, 1, 1);
+    color: white;
+}
+
+.calendar-day {
+    cursor: pointer;
+}
+
+table, th, td {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+td {
+    width: 40px;
+    height: 30px;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}
+
+.container {
+    width: fit-content;
+}
+
+.month-year {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    padding: 5px 2px;
+    border: 2px solid black;
+}
+
+.prev-month, .next-month {
+    background-color: transparent;
+    border: none
+}
