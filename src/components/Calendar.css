@@ -1,50 +1,60 @@
 * {
-    font-family: 'Raleway', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 table, th, td {
-    border: 2px solid black;
-    border-collapse: collapse;
+  border: 2px solid black;
+  border-collapse: collapse;
+  text-align: center;
 }
 
 td {
-    width: 40px;
-    height: 30px;
-    text-align: center;
+  width: 40px;
+  height: 30px;
 }
 
 h2 {
-    text-align: center;
+  text-align: center;
 }
 
 .current {
-    background-color: rgb(192, 1, 1);
-    color: white;
+  background-color: rgb(192, 1, 1);
+}
+
+.current .btn-link.custom {
+  color: white;
 }
 
 .selected {
-    background-color: rgb(192, 1, 1);
-    color: white;
+  background-color: rgb(192, 1, 1);
+}
+
+.selected .btn-link.custom {
+  color: white;
 }
 
 .calendar-day {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.btn-link.custom {
+  color: black
 }
 
 .container {
-    width: fit-content;
+  width: fit-content;
 }
 
 .month-year {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    padding: 5px 2px;
-    border: 2px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 5px 2px;
+  border: 2px solid black;
 }
 
 .prev-month, .next-month {
-    background-color: transparent;
-    border: none
+  background-color: transparent;
+  border: none
 }
