@@ -4,10 +4,48 @@ import moment from 'moment';
 import './Calendar.css';
 
 class Calendar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.refsArray = [];
+  }
+
   state = {
     dateObject: moment(),
     currentDate: moment(),
-    selectedDay: moment(),
+    color: '#ff0',
+    selectedDaysAndColor: [
+      { date: moment(), color: '#c00101' },
+    ],
+  }
+
+  componentDidUpdate() {
+    const { dateObject } = this.state;
+    const { selectedDaysAndColor } = this.state;
+    selectedDaysAndColor.map((day) => {
+      if (dateObject.format('M, YYYY') === day.date.format('M, YYYY')) {
+        const cell = this.refsArray[+day.date.format('D')];
+        cell.style.backgroundColor = day.color;
+      }
+      return true;
+    });
+
+    this.refsArray.map((ref) => {
+      if (!ref) { return true; }
+      let isIncluding = false;
+      for (let i = 0; i < selectedDaysAndColor.length; i += 1) {
+        if (selectedDaysAndColor[i].date.format('M, YYYY') === dateObject.format('M, YYYY')
+        && ref.innerText === selectedDaysAndColor[i].date.format('D')) {
+          isIncluding = true;
+          break;
+        }
+      }
+
+      if (!isIncluding) {
+        // eslint-disable-next-line no-param-reassign
+        ref.style.backgroundColor = '#fff';
+      }
+      return true;
+    });
   }
 
   onChangeMonth = (next) => {
@@ -30,12 +68,30 @@ class Calendar extends React.Component {
 
   onSelectDay(day) {
     const { dateObject } = this.state;
-    const selectedDate = dateObject.date(day);
-    this.setState({ selectedDay: selectedDate });
+    const { selectedDaysAndColor } = this.state;
+    const { color } = this.state;
+    const selectedDate = moment(dateObject).date(day);
+    let permanentDays = [...selectedDaysAndColor];
+    let keep = true;
+    for (let i = 0; i < permanentDays.length; i += 1) {
+      if (permanentDays[i].date.format('D, MM, YYYY') === selectedDate.format('D, MM, YYYY')) {
+        permanentDays.splice(i, 1);
+        keep = false;
+      }
+    }
+    if (keep) {
+      permanentDays = [...permanentDays, { date: selectedDate, color }];
+    }
+
+    this.setState({
+      selectedDaysAndColor: [
+        ...permanentDays,
+      ],
+    });
   }
 
   weekdaysShort = () => {
-    const WEEKDAYS_SHORT = moment.weekdaysShort();
+    const WEEKDAYS_SHORT = moment.weekdaysShort(true);
     const WEEKDAYS_SHORT_NAME = WEEKDAYS_SHORT.map((day) => {
       return (
         <th key={day} className="week-day">
@@ -86,7 +142,6 @@ class Calendar extends React.Component {
   dayCells() {
     const { dateObject } = this.state;
     const { currentDate } = this.state;
-    const { selectedDay } = this.state;
     const blanks = [];
     for (let i = 0; i < this.firstDayOfMonth(); i += 1) {
       blanks.push(
@@ -96,12 +151,12 @@ class Calendar extends React.Component {
 
     const daysInMonth = [];
     const activeClassName = dateObject.format('M, YYYY') === currentDate.format('M, YYYY') ? 'current' : '';
-    const selectedClassName = dateObject.format('M, YYYY') === selectedDay.format('M, YYYY') ? 'selected' : '';
     for (let d = 1; d <= this.daysInMonth(); d += 1) {
       daysInMonth.push(
         <td
           key={d}
-          className={`calendar-day ${currentDate.date() === d ? activeClassName : ''} ${selectedDay.date() === d ? selectedClassName : ''}`}
+          className={`calendar-day ${currentDate.date() === d ? activeClassName : ''}`}
+          ref={(ref) => { this.refsArray[d] = ref; return true; }}
         >
           <button onClick={() => { this.onSelectDay(d); }} type="button" className="btn btn-link custom">{d}</button>
         </td>,
@@ -130,7 +185,7 @@ class Calendar extends React.Component {
     });
 
     return (
-      <table className="calendar-day">
+      <table className="calendar-day table">
         <thead>
           <tr>{this.weekdaysShort()}</tr>
         </thead>
@@ -144,7 +199,9 @@ class Calendar extends React.Component {
       <div className="container">
         <h2>Calendar</h2>
         {this.monthAndYear()}
-        {this.dayCells()}
+        <div className="table-responsive">
+          {this.dayCells()}
+        </div>
       </div>
     );
   }

@@ -3,14 +3,21 @@
 }
 
 table, th, td {
-  border: 2px solid black;
+  border: 2px solid #000;
   border-collapse: collapse;
   text-align: center;
 }
 
 td {
-  width: 40px;
-  height: 30px;
+  padding: 0 !important;
+}
+
+td:hover {
+  background-color: #c00101 !important;
+}
+
+td:hover .btn-link.custom {
+  color: #fff;
 }
 
 h2 {
@@ -18,7 +25,7 @@ h2 {
 }
 
 .current {
-  background-color: rgb(192, 1, 1);
+  background-color: #c00101;
 }
 
 .current .btn-link.custom {
@@ -26,7 +33,7 @@ h2 {
 }
 
 .selected {
-  background-color: rgb(192, 1, 1);
+  background-color: #c00101;
 }
 
 .selected .btn-link.custom {
@@ -38,11 +45,7 @@ h2 {
 }
 
 .btn-link.custom {
-  color: black
-}
-
-.container {
-  width: fit-content;
+  color: #000
 }
 
 .month-year {
@@ -51,7 +54,7 @@ h2 {
   justify-content: space-between;
   margin-bottom: 10px;
   padding: 5px 2px;
-  border: 2px solid black;
+  border: 2px solid #000;
 }
 
 .prev-month, .next-month {
